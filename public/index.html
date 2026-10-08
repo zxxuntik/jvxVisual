@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="description" content="jvxVisual — визуальный мод для Minecraft 1.21.11.">
+    <title>jvxVisual — играй по-своему</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Unbounded:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css?v=4">
+    <script src="/app.js?v=2" defer></script>
+  </head>
+  <body>
+    <div class="ambient ambient-yellow" aria-hidden="true"></div>
+    <div class="ambient ambient-pink" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="wordmark" href="/" data-route aria-label="jvxVisual, главная">
+        <span class="wordmark-mark">j<span>v</span>x</span><span class="wordmark-name">VISUAL</span>
+      </a>
+      <nav class="main-nav" aria-label="Основная навигация">
+        <a href="/" data-route>Главная</a>
+        <a href="/support" data-route>Поддержка</a>
+        <a href="/faq" data-route>FAQ</a>
+      </nav>
+      <div class="header-actions" id="header-actions">
+        <button class="button button-quiet" type="button" data-open-auth="login">Войти</button>
+        <button class="button button-small button-yellow" type="button" data-open-auth="register">Создать аккаунт</button>
+      </div>
+      <button class="menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false" id="menu-toggle"><span></span><span></span></button>
+    </header>
+    <main id="app" tabindex="-1"></main>
+    <footer class="site-footer">
+      <a class="wordmark footer-mark" href="/" data-route><span class="wordmark-mark">j<span>v</span>x</span><span class="wordmark-name">VISUAL</span></a>
+      <p>Визуальный стиль. Твоя игра.</p>
+      <span>jvxVisual · Minecraft 1.21.11</span>
+    </footer>
+    <dialog class="auth-dialog" id="auth-dialog" aria-labelledby="auth-title">
+      <button class="dialog-close" type="button" aria-label="Закрыть" data-close-dialog>×</button>
+      <div class="dialog-kicker"><span class="status-dot"></span> JVXVISUAL ACCOUNT</div>
+      <h2 id="auth-title">С возвращением</h2>
+      <p class="dialog-copy" id="auth-copy">Войди, чтобы открыть профиль.</p>
+      <form id="auth-form">
+        <label class="field" id="register-username-field" hidden><span>Никнейм</span><input name="username" autocomplete="username" minlength="3" maxlength="24" placeholder="Твой ник" pattern="[\p{L}\p{N}_\-]{3,24}"></label>
+        <label class="field" id="register-email-field" hidden><span>Email</span><input name="email" type="email" autocomplete="email" maxlength="254" placeholder="you@example.com"></label>
+        <label class="field"><span id="login-label">Никнейм или email</span><input name="login" autocomplete="username" maxlength="254" placeholder="Твой ник или email"></label>
+        <label class="field"><span>Пароль</span><input name="password" type="password" autocomplete="current-password" minlength="10" maxlength="72" placeholder="Не менее 10 символов"></label>
+        <p class="form-error" id="auth-error" role="alert"></p>
+        <button class="button button-yellow button-wide" type="submit" id="auth-submit">Войти в аккаунт <span aria-hidden="true">↗</span></button>
+      </form>
+      <button class="auth-switch" id="auth-switch" type="button">Нет аккаунта? <span>Зарегистрироваться</span></button>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
