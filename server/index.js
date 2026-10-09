@@ -1,4 +1,12 @@
-require('dotenv').config();
+// Загружаем .env только на локальном компьютере.
+// На хостинге Railway переменные подставляются автоматически, dotenv там не нужен.
+if (process.env.NODE_ENV !== 'production') {
+  try {
+    require('dotenv').config();
+  } catch (e) {
+    // Если библиотеки нет в dev, сервер всё равно запустится
+  }
+}
 
 const path = require('node:path');
 const fs = require('node:fs');
@@ -31,8 +39,8 @@ app.use(helmet({
     directives: {
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
-      fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+      styleSrc: ["'self'", "'unsafe-inline'", 'https://googleapis.com'],
+      fontSrc: ["'self'", 'https://gstatic.com'],
       imgSrc: ["'self'", 'data:'],
       connectSrc: ["'self'"],
       objectSrc: ["'none'"],
@@ -120,7 +128,11 @@ const server = app.listen(port, () => console.log(`jvxVisual доступен: h
 
 async function shutdown() {
   server.close(async () => {
-    await db.pool.end();
+    if (db && db.pool && typeof db.pool.end === 'function') {
+      await db.pool.end();
+    } else if (db && typeof db.end === 'function') {
+      await db.end();
+    }
     process.exit(0);
   });
 }
